@@ -19,7 +19,12 @@ let getCrud = (req, res) => {
 
 let postCrud = async (req, res) => {
   let message = await CRUDservice.createUser(req.body);
-  res.send(message);
+  return res.send(message);
+};
+
+let showCrud = async (req, res) => {
+  let listUser = await CRUDservice.getCrud();
+  res.render("showCrud.ejs", { listUser: listUser });
 };
 
 module.exports = {
@@ -27,4 +32,5 @@ module.exports = {
   getAboutPage: getAboutPage,
   getCrud: getCrud,
   postCrud: postCrud,
+  showCrud: showCrud,
 };

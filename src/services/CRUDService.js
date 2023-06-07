@@ -31,6 +31,11 @@ let createHashPassword = async (password) => {
   }
 };
 
+let getCrud = async () => {
+  let data = await db.User.findAll();
+  return data;
+};
 module.exports = {
   createUser: createUser,
+  getCrud: getCrud,
 };

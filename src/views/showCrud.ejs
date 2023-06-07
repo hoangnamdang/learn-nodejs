@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container mt-4">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">email</th>
+                    <th scope="col">firstName</th>
+                    <th scope="col">lastName</th>
+                    <th scope="col">address</th>
+                    <th scope="col">gender</th>
+                    <th scope="col">phoneNumber</th>
+                    <th scope="col">roleId</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < listUser.length; i++) { %>
+                    <tr>
+                        <th scope="row">
+                            <%= listUser[i].id %>
+                        </th>
+                        <th>
+                            <%= listUser[i].email %>
+                        </th>
+                        <th>
+                            <%= listUser[i].firstName %>
+                        </th>
+                        <th>
+                            <%= listUser[i].lastName %>
+                        </th>
+                        <th>
+                            <%= listUser[i].address %>
+                        </th>
+                        <th>
+                            <%= listUser[i].gender %>
+                        </th>
+                        <th>
+                            <%= listUser[i].phoneNumber %>
+                        </th>
+                        <th>
+                            <%= listUser[i].roleId %>
+                        </th>
+                    </tr>
+                    <% } %>
+
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
