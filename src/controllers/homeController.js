@@ -27,10 +27,24 @@ let showCrud = async (req, res) => {
   res.render("showCrud.ejs", { listUser: listUser });
 };
 
+let editCrud = async (req, res) => {
+  let user = await CRUDservice.getUserById(req.body.id);
+  console.log("tttt", { user });
+  res.render("editCrud.ejs", { user: user });
+};
+
+let updateCrud = async (req, res) => {
+  let listUser = await CRUDservice.updateUserById(req.body);
+  console.log({ listUser });
+  res.render("showCrud.ejs", { listUser: listUser });
+};
+
 module.exports = {
   getHomePage: getHomePage,
   getAboutPage: getAboutPage,
   getCrud: getCrud,
   postCrud: postCrud,
   showCrud: showCrud,
+  editCrud: editCrud,
+  updateCrud: updateCrud,
 };

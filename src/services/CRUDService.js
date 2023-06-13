@@ -35,7 +35,40 @@ let getCrud = async () => {
   let data = await db.User.findAll();
   return data;
 };
+
+let getUserById = async (id) => {
+  let data = await db.User.findOne({ id: id });
+  return data;
+};
+
+let updateUserById = async (data) => {
+  try {
+    let user = await db.User.findOne({ id: data.id });
+    if (Object.keys(user).length > 0) {
+      await db.User.update(
+        {
+          email: data.email,
+          firstName: data.firstName,
+          address: data.address,
+          phoneNumber: data.phoneNumber,
+        },
+        {
+          where: {
+            id: data.id,
+          },
+        }
+      );
+      let allUser = await db.User.findAll();
+      return allUser;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   createUser: createUser,
   getCrud: getCrud,
+  getUserById: getUserById,
+  updateUserById: updateUserById,
 };
