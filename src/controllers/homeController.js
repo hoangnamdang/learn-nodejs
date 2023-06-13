@@ -29,14 +29,17 @@ let showCrud = async (req, res) => {
 
 let editCrud = async (req, res) => {
   let user = await CRUDservice.getUserById(req.body.id);
-  console.log("tttt", { user });
-  res.render("editCrud.ejs", { user: user });
+  return res.render("editCrud.ejs", { user: user });
 };
 
 let updateCrud = async (req, res) => {
-  let listUser = await CRUDservice.updateUserById(req.body);
-  console.log({ listUser });
-  res.render("showCrud.ejs", { listUser: listUser });
+  await CRUDservice.updateUserById(req.body);
+  return res.redirect("/get-crud");
+};
+
+let deleteCrud = async (req, res) => {
+  await CRUDservice.deteleUserById(req.query.id);
+  return res.redirect("/get-crud");
 };
 
 module.exports = {
@@ -47,4 +50,5 @@ module.exports = {
   showCrud: showCrud,
   editCrud: editCrud,
   updateCrud: updateCrud,
+  deleteCrud: deleteCrud,
 };

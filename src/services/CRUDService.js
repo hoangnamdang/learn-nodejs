@@ -58,12 +58,20 @@ let updateUserById = async (data) => {
           },
         }
       );
-      let allUser = await db.User.findAll();
-      return allUser;
     }
   } catch (error) {
     console.log(error);
   }
+};
+
+let deteleUserById = async (id) => {
+  try {
+    await db.User.destroy({
+      where: {
+        id: id,
+      },
+    });
+  } catch (error) {}
 };
 
 module.exports = {
@@ -71,4 +79,5 @@ module.exports = {
   getCrud: getCrud,
   getUserById: getUserById,
   updateUserById: updateUserById,
+  deteleUserById: deteleUserById,
 };
