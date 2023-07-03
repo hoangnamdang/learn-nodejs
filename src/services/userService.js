@@ -52,6 +52,93 @@ const handleExitUser = (userEmail) => {
   });
 };
 
+const handleGetAllUser = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = "";
+      if (userId === "ALL") {
+        user = await db.User.findAll({});
+      }
+      if (userId && userId !== "ALL") {
+        user = await db.User.findOne({
+          where: {
+            id: userId,
+          },
+        });
+      }
+      resolve(user);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+const handleDeleteUser = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await db.User.findOne({ where: { id: id } });
+      if (user) {
+        await db.User.destroy({ where: { id: id } });
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const handleHashPassWord = async (password) => {
+  let salt = await bcrypt.genSaltSync(10);
+  let hash = await bcrypt.hashSync(password, salt);
+  return hash;
+};
+const handleAddNewUser = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const password = data.password;
+      const hashPassword = await handleHashPassWord(password);
+      const isExit = await db.User.findOne({ where: { email: data.email } });
+      console.log({ isExit });
+      if (isExit) {
+        resolve(false);
+      } else {
+        await db.User.create({
+          email: data.email,
+          password: hashPassword,
+          firstName: data.firstName,
+          lastName: data.lastName,
+        });
+        resolve(true);
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const handleEditUser = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const isExit = db.User.findOne({ where: { id: data.id } });
+      if (isExit) {
+        await db.User.update(
+          { firstName: data.firstName, lastName: data.lastName },
+          { where: { id: data.id } }
+        );
+        resolve(true);
+      } else {
+        reject(false);
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 module.exports = {
   handleUser: handleUser,
+  handleGetAllUser: handleGetAllUser,
+  handleDeleteUser: handleDeleteUser,
+  handleAddNewUser: handleAddNewUser,
+  handleEditUser: handleEditUser,
 };
