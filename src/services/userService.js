@@ -135,10 +135,27 @@ const handleEditUser = (data) => {
     }
   });
 };
+
+const getAllCode = (paramType) => {
+  return new Promise(async (resolve, reject) => {
+    if (!paramType) return resolve(false);
+    try {
+      const allCode = await db.allcode.findAll({ where: { type: paramType } });
+      if (allCode) {
+        resolve(allCode);
+      } else {
+        resolve([]);
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 module.exports = {
   handleUser: handleUser,
   handleGetAllUser: handleGetAllUser,
   handleDeleteUser: handleDeleteUser,
   handleAddNewUser: handleAddNewUser,
   handleEditUser: handleEditUser,
+  getAllCode: getAllCode,
 };

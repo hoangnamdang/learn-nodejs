@@ -79,10 +79,26 @@ const handleEditUser = async (req, res) => {
   }
 };
 
+const getAllCode = async (req, res) => {
+  const allCode = await userServices.getAllCode(req.query.type);
+  if (allCode) {
+    return res.status(200).json({
+      errCode: 0,
+      data: allCode,
+    });
+  } else {
+    res.status(200).json({
+      errorCode: 1,
+      message: "Missing param type",
+    });
+  }
+};
+
 module.exports = {
   handleUserLogin: handleUserLogin,
   handleGetAllUser: handleGetAllUser,
   handleDeleteUser: handleDeleteUser,
   handleAddNewUser: handleAddNewUser,
   handleEditUser: handleEditUser,
+  getAllCode: getAllCode,
 };
