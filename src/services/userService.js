@@ -99,7 +99,6 @@ const handleAddNewUser = (data) => {
       const password = data.password;
       const hashPassword = await handleHashPassWord(password);
       const isExit = await db.User.findOne({ where: { email: data.email } });
-      console.log({ isExit });
       if (isExit) {
         resolve(false);
       } else {
@@ -107,7 +106,13 @@ const handleAddNewUser = (data) => {
           email: data.email,
           password: hashPassword,
           firstName: data.firstName,
+          address: data.address,
           lastName: data.lastName,
+          gender: data.gender,
+          phoneNumber: data.phoneNumber,
+          image: data.avatar,
+          roleId: data.role,
+          positionId: data.position,
         });
         resolve(true);
       }
@@ -123,7 +128,17 @@ const handleEditUser = (data) => {
       const isExit = db.User.findOne({ where: { id: data.id } });
       if (isExit) {
         await db.User.update(
-          { firstName: data.firstName, lastName: data.lastName },
+          {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            address: data.address,
+            lastName: data.lastName,
+            gender: data.gender,
+            phoneNumber: data.phoneNumber,
+            image: data.avatar,
+            roleId: data.role,
+            positionId: data.position,
+          },
           { where: { id: data.id } }
         );
         resolve(true);

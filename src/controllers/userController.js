@@ -49,7 +49,8 @@ const handleDeleteUser = async (req, res) => {
 };
 
 const handleAddNewUser = async (req, res) => {
-  const user = await userServices.handleAddNewUser(req.body.data);
+  console.log({ bod: req.body });
+  const user = await userServices.handleAddNewUser(req.body);
   console.log({ user });
   if (user) {
     return res.status(200).json({
